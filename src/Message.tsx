@@ -1,0 +1,24 @@
+export interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
+export function MessageItem(props: { message: Message }) {
+  return (
+    <div class={`message-item ${props.message.role}`}>
+      <div class="message-header">
+        <b>{props.message.role === "user" ? "用户" : "助手"}</b>
+      </div>
+      <div class="message-content">{props.message.content}</div>
+    </div>
+  );
+}
+export function ReplyingMessage(props: { content: string }) {
+  return (
+    <div class="message-item assistant replying">
+      <div class="message-header">
+        <b>助手</b>
+      </div>
+      <div class="message-content">{props.content}</div>
+    </div>
+  );
+}
