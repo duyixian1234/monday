@@ -16,15 +16,14 @@ export async function getApiSettings() {
 
 export async function checkApiSettings() {
   const settings = await getApiSettings();
-  return {
-    isValid:
-      settings.apikey !== "No API Key found" &&
-      settings.baseUrl !== "No Base URL found" &&
-      settings.modelId !== "No Model found" &&
-      settings.apikey.length > 0 &&
-      settings.baseUrl.length > 0 &&
-      settings.modelId.length > 0,
-  };
+  return (
+    settings.apikey !== "No API Key found" &&
+    settings.baseUrl !== "No Base URL found" &&
+    settings.modelId !== "No Model found" &&
+    settings.apikey.length > 0 &&
+    settings.baseUrl.length > 0 &&
+    settings.modelId.length > 0
+  );
 }
 
 export async function chat(payload: Record<string, any>) {
