@@ -1,36 +1,34 @@
-import { createEffect, createSignal, For } from "solid-js";
+import { createSignal, createEffect, For } from "solid-js";
 import { chat, parseStream } from "../lib";
 import { Message, MessageItem, ReplyingMessage } from "../Message";
+import { ChatSession } from "../types";
 
-export function Chat() {
+export function Chat(props: {
+  session?: ChatSession;
+  onMessagesUpdate: (messages: Message[]) => void;
+}) {
   const [assistantMsg, setAssistantMessage] = createSignal("");
   const [userInput, setUserInput] = createSignal("");
-  const [history, setHistory] = createSignal<Message[]>([
-    {
-      role: "assistant",
-      content: "你好，我是 Mondy 助手，有什么可以帮助你的吗？",
-    },
-  ]);
   const [replying, setReplying] = createSignal(false);
   let messagesContainerRef: HTMLDivElement | undefined;
 
   async function doChat() {
-    if (!userInput().trim()) return;
+    if (!userInput().trim() || !props.session) return;
 
     const currentInput = userInput();
     setUserInput("");
-    setHistory((prev) => [...prev, { role: "user", content: currentInput }]);
+
+    const updatedMessages: Message[] = [
+      ...props.session.messages,
+      { role: "user", content: currentInput },
+    ];
+    props.onMessagesUpdate(updatedMessages);
     setAssistantMessage("");
 
     const response = await chat({
-      messages: [
-        ...history(),
-        {
-          role: "user",
-          content: currentInput,
-        },
-      ],
+      messages: updatedMessages,
     });
+
     if (response.ok) {
       setReplying(true);
       scrollToBottom();
@@ -46,10 +44,11 @@ export function Chat() {
         }
       }
 
-      setHistory((prev) => [
-        ...prev,
+      const finalMessages: Message[] = [
+        ...updatedMessages,
         { role: "assistant", content: assistantMsg() || "" },
-      ]);
+      ];
+      props.onMessagesUpdate(finalMessages);
       setReplying(false);
     } else {
       console.log(await response.text());
@@ -65,7 +64,7 @@ export function Chat() {
   }
 
   createEffect(() => {
-    if (history().length) {
+    if (props.session?.messages.length) {
       scrollToBottom();
     }
   });
@@ -73,8 +72,16 @@ export function Chat() {
   return (
     <>
       <div class="messages-container" ref={messagesContainerRef}>
-        <For each={history()}>{(msg) => <MessageItem message={msg} />}</For>
-        {replying() && <ReplyingMessage content={assistantMsg()} />}
+        {props.session ? (
+          <>
+            <For each={props.session.messages}>
+              {(msg) => <MessageItem message={msg} />}
+            </For>
+            {replying() && <ReplyingMessage content={assistantMsg()} />}
+          </>
+        ) : (
+          <div class="no-session-message">请创建或选择一个会话</div>
+        )}
       </div>
 
       <form
@@ -95,8 +102,9 @@ export function Chat() {
             }
           }}
           placeholder="请输入你的问题..."
+          disabled={!props.session || replying()}
         />
-        <button type="submit" disabled={replying()}>
+        <button type="submit" disabled={!props.session || replying()}>
           {replying() ? "回复中..." : "发送"}
         </button>
       </form>

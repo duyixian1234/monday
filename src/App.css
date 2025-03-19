@@ -299,6 +299,151 @@ button:active {
   border-radius: 6px;
 }
 
+/* 会话管理样式 */
+.session-manager {
+  position: relative;
+  z-index: 10;
+}
+
+.toggle-sessions-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #4a7dff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+
+.toggle-sessions-btn:hover {
+  background-color: #3a6ae6;
+  transform: translateY(-2px);
+}
+
+.sessions-sidebar {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  width: 250px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  padding: 15px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.sessions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.sessions-header h3 {
+  margin: 0;
+}
+
+.new-session-btn {
+  background-color: #4a7dff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.sessions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.session-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.session-item:hover {
+  background-color: #f5f5f5;
+}
+
+.session-item.active {
+  background-color: #e1f3fd;
+  font-weight: bold;
+}
+
+.session-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.session-actions {
+  display: none;
+  gap: 5px;
+}
+
+.session-item:hover .session-actions {
+  display: flex;
+}
+
+.rename-btn, .delete-btn {
+  background: none;
+  border: none;
+  font-size: 0.8em;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.rename-btn {
+  color: #4a7dff;
+}
+
+.rename-btn:hover {
+  background-color: rgba(74, 125, 255, 0.1);
+}
+
+.delete-btn {
+  color: #ff4a4a;
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 74, 74, 0.1);
+}
+
+.session-item input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #4a7dff;
+  border-radius: 4px;
+}
+
+.no-session-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #999;
+  font-style: italic;
+}
+
 /* 深色模式 */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -378,5 +523,30 @@ button:active {
   .settings-missing {
     background-color: #3b2323;
     border-color: #8a4141;
+  }
+
+  .sessions-sidebar {
+    background-color: #252525;
+    border: 1px solid #444;
+  }
+  
+  .sessions-header {
+    border-bottom: 1px solid #444;
+  }
+  
+  .session-item:hover {
+    background-color: #333;
+  }
+  
+  .session-item.active {
+    background-color: #344966;
+  }
+  
+  .rename-btn:hover {
+    background-color: rgba(74, 125, 255, 0.2);
+  }
+  
+  .delete-btn:hover {
+    background-color: rgba(255, 74, 74, 0.2);
   }
 }
