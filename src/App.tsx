@@ -9,6 +9,12 @@ import { Message } from "./Message";
 function App() {
   const [sessions, setSessions] = createSignal<ChatSession[]>([]);
   const [activeSessionId, setActiveSessionId] = createSignal<string>("");
+  const [isSidebarOpen, setIsSidebarOpen] = createSignal(true);
+
+  // 切换侧边栏展开/收起状态
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen());
+  };
 
   // 初始化默认会话
   const initializeDefaultSession = () => {
@@ -146,21 +152,30 @@ function App() {
   return (
     <main class="chat-container">
       <header class="chat-header">
+        <button class="sidebar-toggle" onClick={toggleSidebar}>
+          {isSidebarOpen() ? "«" : "»"}
+        </button>
         <h1>Mondy 助手</h1>
       </header>
       <Help />
-      <SessionManager
-        sessions={sessions()}
-        activeSessionId={activeSessionId()}
-        onSessionChange={setActiveSessionId}
-        onNewSession={handleNewSession}
-        onDeleteSession={handleDeleteSession}
-        onRenameSession={handleRenameSession}
-      />
-      <Chat
-        session={getActiveSession()}
-        onMessagesUpdate={updateSessionMessages}
-      />
+      <div class="app-content">
+        <div class={`sidebar ${isSidebarOpen() ? "open" : "closed"}`}>
+          <SessionManager
+            sessions={sessions()}
+            activeSessionId={activeSessionId()}
+            onSessionChange={setActiveSessionId}
+            onNewSession={handleNewSession}
+            onDeleteSession={handleDeleteSession}
+            onRenameSession={handleRenameSession}
+          />
+        </div>
+        <div class="chat-main">
+          <Chat
+            session={getActiveSession()}
+            onMessagesUpdate={updateSessionMessages}
+          />
+        </div>
+      </div>
     </main>
   );
 }
