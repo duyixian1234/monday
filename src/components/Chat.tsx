@@ -1,12 +1,13 @@
 import { createEffect, For } from "solid-js";
 import { Message, MessageItem, ReplyingMessage } from "../Message";
 import { ChatSession } from "../types";
-import { chatStore } from "../store/chatStore";
+import { useChatStore } from "../store/chatStore.tsx";
 
 export function Chat(props: {
   session?: ChatSession;
   onMessagesUpdate: (messages: Message[]) => void;
 }) {
+  const chatStore = useChatStore();
   let messagesContainerRef: HTMLDivElement | undefined;
 
   function scrollToBottom() {

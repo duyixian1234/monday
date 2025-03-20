@@ -3,6 +3,7 @@ import { Chat } from "./components/Chat";
 import { Help } from "./components/Help";
 import { SessionManager } from "./components/SessionManager";
 import { SessionStoreProvider, useSessionStore } from "./store/sessionStore";
+import { ChatStoreProvider } from "./store/chatStore.tsx";
 
 function AppContent() {
   const store = useSessionStore();
@@ -41,7 +42,9 @@ function AppContent() {
 function App() {
   return (
     <SessionStoreProvider>
-      <AppContent />
+      <ChatStoreProvider>
+        <AppContent />
+      </ChatStoreProvider>
     </SessionStoreProvider>
   );
 }
