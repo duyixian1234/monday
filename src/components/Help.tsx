@@ -7,7 +7,7 @@ export function Help() {
   return (
     <div class="help-container">
       <button class="help-button" onClick={() => setIsOpen(!isOpen())}>
-        {isOpen() ? "关闭帮助" : "帮助"}
+        ?
       </button>
 
       <Show when={isOpen()}>

@@ -7,8 +7,8 @@
 }
 
 .help-button {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: white;
+  color: gray;
   border: none;
   border-radius: var(--radius-lg);
   padding: 0.5rem 1rem;
@@ -19,11 +19,6 @@
   font-size: 0.875rem;
 }
 
-.help-button:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
 
 .help-button:active {
   transform: translateY(1px);
