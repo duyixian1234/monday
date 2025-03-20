@@ -57,9 +57,9 @@ export function Chat(props: {
           id="chat-input"
           value={chatStore.userInput()}
           onChange={(e) => chatStore.setUserInput(e.currentTarget.value)}
-          onKeyPress={(e) => {
+          onKeyUp={(e) => {
+            e.preventDefault();
             if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
               chatStore.doChat(
                 props.session,
                 props.onMessagesUpdate,
