@@ -30,56 +30,101 @@
   height: 100%;
   width: 100%;
   min-width: 0;
+  position: relative;
+  background-color: var(--light-bg);
+  transition: all var(--transition-normal);
 }
 
 .messages-container {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
   scroll-behavior: smooth;
-  width: calc(100% - 10px);
-  margin-top: 20px;
+  width: 100%;
   box-sizing: border-box;
+  background-image: linear-gradient(to bottom, rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.3));
 }
 
 /* 输入框样式 */
 .input-container {
   display: flex;
-  padding: 15px;
+  padding: 1rem;
   background-color: #ffffff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 5;
 }
 
 #chat-input {
   flex: 1;
-  padding: 12px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  margin-right: 10px;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  margin-right: 0.75rem;
   font-size: 1rem;
+  resize: none;
+  min-height: 2.5rem;
+  max-height: 150px;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+#chat-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
 }
 
 .input-container button {
-  padding: 8px 20px;
-  border-radius: 20px;
-  background-color: #4a7dff;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--primary-color);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
-  transition: background-color 0.3s;
+  transition: all var(--transition-fast);
+  align-self: flex-end;
+  white-space: nowrap;
+  height: 2.5rem;
 }
 
-.input-container button:hover {
-  background-color: #3a6ae6;
+.input-container button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.input-container button:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .input-container button:disabled {
-  background-color: #a0a0a0;
-  cursor: not-allowed;
+  background-color: var(--secondary-color);
+  opacity: 0.7;
+}
+
+/* 打字指示器 */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+.typing-indicator::after {
+  content: '...';
+  width: 1.5rem;
+  animation: typingDots 1.5s infinite;
+}
+
+@keyframes typingDots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
 }
 
 /* 深色模式 */
@@ -92,14 +137,22 @@
     background-color: #252525;
   }
 
+  .chat-main {
+    background-color: var(--dark-bg);
+  }
+  
+  .messages-container {
+    background-image: linear-gradient(to bottom, rgba(33, 37, 41, 0.7), rgba(33, 37, 41, 0.3));
+  }
+
   .input-container {
-    background-color: #252525;
-    border-top: 1px solid #333;
+    background-color: #2d3748;
+    border-color: #4a5568;
   }
 
   #chat-input {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
+    background-color: #2d3748;
+    color: var(--light-text);
+    border-color: #4a5568;
   }
 }

@@ -1,25 +1,32 @@
 /* 帮助组件相关样式 */
 .help-container {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   z-index: 100;
 }
 
 .help-button {
-  background-color: #4a7dff;
+  background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 8px 15px;
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  font-weight: 600;
+  font-size: 0.875rem;
 }
 
 .help-button:hover {
-  background-color: #3a6ae6;
+  background-color: var(--primary-hover);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.help-button:active {
+  transform: translateY(1px);
 }
 
 .help-content {
@@ -28,91 +35,113 @@
   right: 0;
   width: 450px;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  margin-top: 10px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+  margin-top: 0.75rem;
   max-height: 80vh;
   overflow-y: auto;
+  animation: slide-down var(--transition-normal);
+}
+
+.help-content h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: var(--dark-text);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+
+.help-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: var(--dark-text);
 }
 
 .env-vars-list {
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  padding: 12px;
-  margin: 10px 0;
+  background-color: #f8f9fa;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--primary-color);
 }
 
 .env-var-item {
-  margin: 8px 0;
+  margin: 0.75rem 0;
   display: flex;
-  gap: 10px;
+  gap: 0.75rem;
   align-items: baseline;
 }
 
 .env-var-item code {
   font-weight: bold;
-  color: #d14;
-  background-color: #f8f8f8;
-  padding: 2px 4px;
-  border-radius: 3px;
+  color: #d63384;
+  background-color: rgba(214, 51, 132, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .code-block {
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: var(--radius-md);
+  padding: 1rem;
   overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--border-color);
 }
 
 .code-block pre {
   margin: 0;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
 }
 
-.env-status {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 6px;
-  background-color: #fff4e5;
-  border: 1px solid #ffd592;
+.code-block code {
+  color: var(--dark-text);
 }
 
-.settings-missing {
-  background-color: #ffeeee;
-  border: 1px solid #ffb6b6;
-  padding: 15px;
-  margin-top: 10px;
-  border-radius: 6px;
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 深色模式 */
 @media (prefers-color-scheme: dark) {
   .help-content {
-    background-color: #333;
-    color: #f0f0f0;
+    background-color: #2d3748;
+    color: var(--light-text);
+  }
+
+  .help-content h2, 
+  .help-content h3 {
+    color: var(--light-text);
   }
 
   .env-vars-list {
-    background-color: #222;
+    background-color: #1a202c;
+    border-color: var(--primary-color);
   }
 
   .env-var-item code {
-    background-color: #444;
-    color: #ff9580;
+    background-color: rgba(214, 51, 132, 0.2);
+    color: #f8b4d9;
   }
 
   .code-block {
-    background-color: #222;
-    color: #f0f0f0;
+    background-color: #1a202c;
+    border-color: #4a5568;
   }
 
-  .env-status {
-    background-color: #3b3223;
-    border-color: #896d41;
-  }
-
-  .settings-missing {
-    background-color: #3b2323;
-    border-color: #8a4141;
+  .code-block code {
+    color: var(--light-text);
   }
 }
