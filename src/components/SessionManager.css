@@ -14,7 +14,7 @@
 
 .sidebar.closed {
   margin-left: -280px;
-  width: 0;
+  width: 280px; /* 修改为固定宽度 */
 }
 
 /* 会话管理样式 */
