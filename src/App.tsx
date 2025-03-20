@@ -1,9 +1,9 @@
-import "./App.css";
 import { Chat } from "./components/Chat";
 import { Help } from "./components/Help";
 import { SessionManager } from "./components/SessionManager";
 import { SessionStoreProvider, useSessionStore } from "./store/sessionStore";
 import { ChatStoreProvider } from "./store/chatStore.tsx";
+import "./App.css";
 
 function AppContent() {
   const store = useSessionStore();

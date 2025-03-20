@@ -15,6 +15,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* 全局样式 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 /* 全局布局 */
 body,
 html {
@@ -42,48 +53,14 @@ h1 {
   text-align: center;
 }
 
-/* 聊天界面布局 */
-.chat-container {
+/* 应用布局 */
+.app-content {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  max-width: 100%; /* 修改为100%，不限制最大宽度 */
-  margin: 0 auto;
-  background-color: #f6f6f6;
-  padding: 20px;
-  box-sizing: border-box;
-  padding-right: 20px; /* 减少右侧内边距 */
-}
-
-.chat-header {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-.chat-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.messages-container {
   flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  scroll-behavior: smooth;
-  width: calc(100% - 10px); /* 确保宽度计算正确 */
-  margin-top: 20px;
-  box-sizing: border-box; /* 确保padding包含在width内 */
+  overflow: hidden;
+  height: calc(100vh - 60px);
+  position: relative;
+  width: 100%;
 }
 
 /* 消息样式 */
@@ -93,8 +70,8 @@ h1 {
   max-width: 80%;
   animation: fade-in 0.3s ease;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  word-wrap: break-word; /* 确保长文本能换行 */
-  overflow-wrap: break-word; /* 现代浏览器支持 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .message-item.user {
@@ -130,25 +107,7 @@ h1 {
   line-height: 1.5;
 }
 
-/* 输入框样式 */
-.input-container {
-  display: flex;
-  padding: 15px;
-  background-color: #ffffff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
-}
-
-#chat-input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  margin-right: 10px;
-  font-size: 1rem;
-}
-
-/* 通用表单元素 */
+/* 表单元素通用样式 */
 input,
 button {
   border-radius: 8px;
@@ -177,38 +136,6 @@ button:active {
   background-color: #e8e8e8;
 }
 
-.input-container button {
-  padding: 8px 20px;
-  border-radius: 20px;
-  background-color: #4a7dff;
-  color: white;
-  font-weight: bold;
-  border: none;
-  transition: background-color 0.3s;
-}
-
-.input-container button:hover {
-  background-color: #3a6ae6;
-}
-
-.input-container button:disabled {
-  background-color: #a0a0a0;
-  cursor: not-allowed;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
 /* 动画效果 */
 @keyframes fade-in {
   from {
@@ -218,275 +145,6 @@ button:active {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Help组件样式 */
-.help-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-}
-
-.help-button {
-  background-color: #4a7dff;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 15px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.2s;
-}
-
-.help-button:hover {
-  background-color: #3a6ae6;
-  transform: translateY(-2px);
-}
-
-.help-content {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 450px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-  padding: 20px;
-  margin-top: 10px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.env-vars-list {
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  padding: 12px;
-  margin: 10px 0;
-}
-
-.env-var-item {
-  margin: 8px 0;
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-}
-
-.env-var-item code {
-  font-weight: bold;
-  color: #d14;
-  background-color: #f8f8f8;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-
-.code-block {
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  padding: 15px;
-  overflow-x: auto;
-}
-
-.code-block pre {
-  margin: 0;
-}
-
-.env-status {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 6px;
-  background-color: #fff4e5;
-  border: 1px solid #ffd592;
-}
-
-.settings-missing {
-  background-color: #ffeeee;
-  border: 1px solid #ffb6b6;
-  padding: 15px;
-  margin-top: 10px;
-  border-radius: 6px;
-}
-
-/* 会话管理样式 */
-.session-manager {
-  width: 100%;  /* 调整宽度以适应侧边栏 */
-}
-
-.sessions-sidebar {
-  width: 100%;  /* 调整宽度以适应侧边栏 */
-  background-color: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 15px;
-  max-height: none;
-  overflow-y: auto;
-}
-
-.sessions-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.sessions-header h3 {
-  margin: 0;
-}
-
-.new-session-btn {
-  background-color: #4a7dff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-.sessions-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.session-item {
-  padding: 10px 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  position: relative;
-}
-
-.session-item:hover {
-  background-color: #f5f5f5;
-}
-
-.session-item.active {
-  background-color: #e1f3fd;
-  font-weight: bold;
-}
-
-.session-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.session-actions {
-  display: none;
-  gap: 5px;
-}
-
-.session-item:hover .session-actions {
-  display: flex;
-}
-
-.rename-btn, .delete-btn {
-  background: none;
-  border: none;
-  font-size: 0.8em;
-  padding: 3px 6px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.rename-btn {
-  color: #4a7dff;
-}
-
-.rename-btn:hover {
-  background-color: rgba(74, 125, 255, 0.1);
-}
-
-.delete-btn {
-  color: #ff4a4a;
-}
-
-.delete-btn:hover {
-  background-color: rgba(255, 74, 74, 0.1);
-}
-
-.session-item input {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #4a7dff;
-  border-radius: 4px;
-}
-
-.no-session-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #999;
-  font-style: italic;
-}
-
-/* 侧边栏样式 */
-.app-content {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  height: calc(100vh - 100px); /* 减去头部和Help组件的高度 */
-  position: relative;
-  width: 100%; /* 确保宽度为100% */
-}
-
-.sidebar {
-  width: 250px;
-  transition: width 0.3s ease;
-  overflow-y: auto;
-  flex-shrink: 0;
-  background-color: #f5f5f5;
-  border-right: 1px solid #e0e0e0;
-  height: 100%;
-}
-
-.sidebar.closed {
-  width: 0;
-  overflow: hidden;
-}
-
-.chat-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: 100%;
-  width: 100%; /* 确保宽度占满可用空间 */
-  min-width: 0; /* 防止flex子元素溢出 */
-}
-
-/* 确保Chat组件内容可滚动 */
-.chat-main > div {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  width: 100%; /* 确保宽度占满父容器 */
-  min-width: 0; /* 防止flex子元素溢出 */
-}
-
-/* 适配手机屏幕 */
-@media (max-width: 768px) {
-  .sidebar {
-    position: absolute;
-    z-index: 100;
-    background-color: white;
-    height: 100%;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sidebar.open {
-    left: 0;
   }
 }
 
@@ -511,25 +169,6 @@ button:active {
     background-color: #0f0f0f69;
   }
 
-  .chat-container {
-    background-color: #1e1e1e;
-  }
-
-  .chat-header {
-    background-color: #252525;
-  }
-
-  .input-container {
-    background-color: #252525;
-    border-top: 1px solid #333;
-  }
-
-  #chat-input {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #444;
-  }
-
   .message-item.assistant {
     background-color: #2a2a2a;
   }
@@ -540,59 +179,5 @@ button:active {
 
   .message-item.replying {
     background-color: #263238;
-  }
-
-  .help-content {
-    background-color: #333;
-    color: #f0f0f0;
-  }
-  
-  .env-vars-list {
-    background-color: #222;
-  }
-  
-  .env-var-item code {
-    background-color: #444;
-    color: #ff9580;
-  }
-  
-  .code-block {
-    background-color: #222;
-    color: #f0f0f0;
-  }
-  
-  .env-status {
-    background-color: #3b3223;
-    border-color: #896d41;
-  }
-  
-  .settings-missing {
-    background-color: #3b2323;
-    border-color: #8a4141;
-  }
-
-  .sessions-sidebar {
-    background-color: transparent;
-    border: none;
-  }
-  
-  .sessions-header {
-    border-bottom: 1px solid #444;
-  }
-  
-  .session-item:hover {
-    background-color: #333;
-  }
-  
-  .session-item.active {
-    background-color: #344966;
-  }
-  
-  .rename-btn:hover {
-    background-color: rgba(74, 125, 255, 0.2);
-  }
-  
-  .delete-btn:hover {
-    background-color: rgba(255, 74, 74, 0.2);
   }
 }

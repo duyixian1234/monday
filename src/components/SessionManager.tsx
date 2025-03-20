@@ -1,5 +1,6 @@
 import { createSignal, For, Show } from "solid-js";
 import { ChatSession } from "../types";
+import "./SessionManager.css";
 
 export function SessionManager(props: {
   sessions: ChatSession[];

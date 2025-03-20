@@ -1,4 +1,5 @@
 import { createSignal, Show } from "solid-js";
+import "./Help.css";
 
 export function Help() {
   const [isOpen, setIsOpen] = createSignal(false);

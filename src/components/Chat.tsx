@@ -2,6 +2,7 @@ import { createEffect, For } from "solid-js";
 import { Message, MessageItem, ReplyingMessage } from "../Message";
 import { ChatSession } from "../types";
 import { useChatStore } from "../store/chatStore.tsx";
+import "./Chat.css";
 
 export function Chat(props: {
   session?: ChatSession;
