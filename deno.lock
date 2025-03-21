@@ -5,6 +5,8 @@
     "npm:@tauri-apps/cli@2": "2.3.1",
     "npm:@tauri-apps/plugin-http@~2.4.2": "2.4.2",
     "npm:@tauri-apps/plugin-opener@2": "2.2.6",
+    "npm:@types/showdown@^2.0.6": "2.0.6",
+    "npm:showdown@^2.1.0": "2.1.0",
     "npm:solid-js@^1.9.3": "1.9.5_seroval@1.2.1",
     "npm:typescript@~5.6.2": "5.6.3",
     "npm:vite-plugin-solid@^2.11.0": "2.11.6_solid-js@1.9.5__seroval@1.2.1_vite@6.2.2_@babel+core@7.26.10",
@@ -398,6 +400,9 @@
     "@types/estree@1.0.6": {
       "integrity": "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw=="
     },
+    "@types/showdown@2.0.6": {
+      "integrity": "sha512-pTvD/0CIeqe4x23+YJWlX2gArHa8G0J0Oh6GKaVXV7TAeickpkkZiNOgFcFcmLQ5lB/K0qBJL1FtRYltBfbGCQ=="
+    },
     "babel-plugin-jsx-dom-expressions@0.39.7_@babel+core@7.26.10": {
       "integrity": "sha512-8GzVmFla7jaTNWW8W+lTMl9YGva4/06CtwJjySnkYtt8G1v9weCzc2SuF1DfrudcCNb2Doetc1FRg33swBYZCA==",
       "dependencies": [
@@ -428,6 +433,9 @@
     },
     "caniuse-lite@1.0.30001706": {
       "integrity": "sha512-3ZczoTApMAZwPKYWmwVbQMFpXBDds3/0VciVoUwPUbldlYyVLmRVuRs/PcUZtHpbLRpzzDvrvnFuREsGt6lUug=="
+    },
+    "commander@9.5.0": {
+      "integrity": "sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ=="
     },
     "convert-source-map@2.0.0": {
       "integrity": "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="
@@ -580,6 +588,12 @@
     "seroval@1.2.1": {
       "integrity": "sha512-yBxFFs3zmkvKNmR0pFSU//rIsYjuX418TnlDmc2weaq5XFDqDIV/NOMPBoLrbxjLH42p4UzRuXHryXh9dYcKcw=="
     },
+    "showdown@2.1.0": {
+      "integrity": "sha512-/6NVYu4U819R2pUIk79n67SYgJHWCce0a5xTP979WbNp0FL9MN1I1QK662IDU1b6JzKTvmhgI7T7JYIxBi3kMQ==",
+      "dependencies": [
+        "commander"
+      ]
+    },
     "solid-js@1.9.5_seroval@1.2.1": {
       "integrity": "sha512-ogI3DaFcyn6UhYhrgcyRAMbu/buBJitYQASZz5WzfQVPP10RD2AbCoRZ517psnezrasyCbWzIxZ6kVqet768xw==",
       "dependencies": [
@@ -653,6 +667,8 @@
         "npm:@tauri-apps/cli@2",
         "npm:@tauri-apps/plugin-http@~2.4.2",
         "npm:@tauri-apps/plugin-opener@2",
+        "npm:@types/showdown@^2.0.6",
+        "npm:showdown@^2.1.0",
         "npm:solid-js@^1.9.3",
         "npm:typescript@~5.6.2",
         "npm:vite-plugin-solid@^2.11.0",
