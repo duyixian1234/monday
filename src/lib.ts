@@ -28,7 +28,14 @@ export async function checkApiSettings() {
 
 export async function chat(payload: Record<string, any>) {
   const settings = await getApiSettings();
-  const actual = { ...payload, model: settings.modelId, stream: true };
+  const actual = {
+    ...payload,
+    model: settings.modelId,
+    stream: true,
+    // enable_enhancement: true,
+    // citation: true,
+    // search_info: true,
+  };
   return fetch(`${settings.baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
