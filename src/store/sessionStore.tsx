@@ -5,7 +5,7 @@ import {
   createEffect,
 } from "solid-js";
 import { ChatSession } from "../types";
-import { Message } from "../Message";
+import { Message } from "../types";
 
 // 创建状态管理上下文
 interface SessionStoreContextValue {

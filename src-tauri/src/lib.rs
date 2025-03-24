@@ -1,11 +1,12 @@
 use std::env;
 
 #[tauri::command]
-fn get_openai_settings() -> (String, String, String) {
+fn get_openai_settings() -> (String, String, String, String) {
     let api_key = env::var("OPENAI_API_KEY").unwrap_or_else(|_| "No API Key found".to_string());
     let base_url = env::var("OPENAI_BASE_URL").unwrap_or_else(|_| "No Base URL found".to_string());
     let model = env::var("OPENAI_MODEL").unwrap_or_else(|_| "No Model found".to_string());
-    (api_key, base_url, model)
+    let deep_model = env::var("OPENAI_MODEL_DEEP").unwrap_or_else(|_| "No Deep Model found".to_string());
+    (api_key, base_url, model, deep_model)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

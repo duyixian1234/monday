@@ -172,3 +172,97 @@
     border-color: #4a5568;
   }
 }
+
+/* 思考内容相关样式 */
+.toggle-reasoning {
+  cursor: pointer;
+  margin-left: 10px;
+  color: var(--secondary-color);
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.triangle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 10px;
+  margin-right: 4px;
+}
+
+.triangle-icon.right {
+  transform: rotate(-90deg);
+}
+
+.triangle-icon.down {
+  transform: rotate(0deg);
+}
+
+.reasoning-content {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-left: 3px solid var(--primary-color);
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 0 8px 8px 0;
+}
+
+.reasoning-header {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.reasoning-body {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--secondary-text);
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .reasoning-content {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--primary-light);
+  }
+  
+  .reasoning-header {
+    color: var(--primary-light);
+  }
+  
+  .reasoning-body {
+    color: var(--light-secondary-text);
+  }
+}
+
+/* 在文件末尾添加以下样式 */
+.chat-options {
+  margin: 10px 0;
+  padding: 0 15px;
+}
+
+.option-group {
+  display: flex;
+  gap: 15px;
+}
+
+.option-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.option-group input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.option-group input[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

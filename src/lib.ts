@@ -1,15 +1,20 @@
-import { fetch } from "@tauri-apps/plugin-http";
 import { invoke } from "@tauri-apps/api/core";
+import { fetch } from "@tauri-apps/plugin-http";
+import { Message } from "./types";
 
-let apiSettings: { apikey: string; baseUrl: string; modelId: string } | null =
-  null;
+let apiSettings: {
+  apikey: string;
+  baseUrl: string;
+  modelId: string;
+  deepModelId: string;
+} | null = null;
 
 export async function getApiSettings() {
   if (!apiSettings) {
-    const [apikey, baseUrl, modelId] = (await invoke(
+    const [apikey, baseUrl, modelId, deepModelId] = (await invoke(
       "get_openai_settings"
-    )) as [string, string, string];
-    apiSettings = { apikey, baseUrl, modelId };
+    )) as [string, string, string, string];
+    apiSettings = { apikey, baseUrl, modelId, deepModelId };
   }
   return apiSettings;
 }
@@ -26,15 +31,48 @@ export async function checkApiSettings() {
   );
 }
 
-export async function chat(payload: Record<string, any>) {
+export async function generateTitle(messages: Message[]) {
+  const settings = await getApiSettings();
+  const actual = {
+    messages: [
+      ...messages,
+      {
+        role: "user",
+        content: `${messages
+          .map((msg) => `${msg.role}: ${msg.content}`)
+          .join(
+            "\n"
+          )}\n请给以上内容生成一个简短的标题，直接返回标题内容，不要添加markdown标记。`,
+      },
+    ],
+    model: settings.modelId,
+    stream: false,
+  };
+  const resp = await fetch(`${settings.baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${settings.apikey}`,
+    },
+    body: JSON.stringify(actual),
+  });
+  const data = await resp.json();
+  return data.choices?.[0].message.content;
+}
+
+export async function chat(
+  payload: Record<string, any>,
+  isDeep = false,
+  search = false
+) {
   const settings = await getApiSettings();
   const actual = {
     ...payload,
-    model: settings.modelId,
+    model: isDeep ? settings.deepModelId : settings.modelId,
     stream: true,
-    // enable_enhancement: true,
-    // citation: true,
-    // search_info: true,
+    enable_enhancement: search,
+    citation: search,
+    search_info: search,
   };
   return fetch(`${settings.baseUrl}/chat/completions`, {
     method: "POST",

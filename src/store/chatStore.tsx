@@ -1,6 +1,6 @@
-import { createSignal, createContext, useContext } from "solid-js";
+import { createContext, createSignal, useContext } from "solid-js";
 import { chat, parseStream } from "../lib";
-import { Message } from "../Message";
+import { Message } from "../types";
 import { ChatSession } from "../types";
 
 // 创建聊天状态管理上下文
@@ -14,6 +14,11 @@ interface ChatStoreContextValue {
     onMessagesUpdate: (messages: Message[]) => void,
     scrollToBottom: () => void
   ) => Promise<void>;
+  reasoningContent: () => string | undefined;
+  isDeep: () => boolean;
+  setIsDeep: (isDeep: boolean) => void;
+  useSearch: () => boolean;
+  setUseSearch: (useSearch: boolean) => void;
 }
 
 const ChatStoreContext = createContext<ChatStoreContextValue>();
@@ -22,6 +27,11 @@ export function ChatStoreProvider(props: { children: any }) {
   const [assistantMsg, setAssistantMessage] = createSignal("");
   const [userInput, setUserInput] = createSignal("");
   const [replying, setReplying] = createSignal(false);
+  const [reasoningContent, setReasoningContent] = createSignal<
+    string | undefined
+  >(undefined);
+  const [isDeep, setIsDeep] = createSignal(false);
+  const [useSearch, setUseSearch] = createSignal(false);
 
   async function doChat(
     session: ChatSession | undefined,
@@ -39,10 +49,15 @@ export function ChatStoreProvider(props: { children: any }) {
     ];
     onMessagesUpdate(updatedMessages);
     setAssistantMessage("");
+    setReasoningContent(undefined);
 
-    const response = await chat({
-      messages: updatedMessages,
-    });
+    const response = await chat(
+      {
+        messages: updatedMessages.slice(1),
+      },
+      isDeep(),
+      useSearch()
+    );
 
     if (response.ok) {
       setReplying(true);
@@ -53,15 +68,24 @@ export function ChatStoreProvider(props: { children: any }) {
           const content = chunk.slice(5);
           if (content === " [DONE]") break;
           const part = JSON.parse(content);
-          const delta = part.choices?.[0]?.delta?.content;
-          setAssistantMessage((prev) => prev + (delta || ""));
+          const reasoningContentPart =
+            part.choices?.[0]?.delta?.reasoning_content;
+          if (reasoningContentPart) {
+            setReasoningContent((prev) => (prev || "") + reasoningContentPart);
+          }
+          const contentPart = part.choices?.[0]?.delta?.content;
+          setAssistantMessage((prev) => prev + (contentPart || ""));
           scrollToBottom();
         }
       }
 
       const finalMessages: Message[] = [
         ...updatedMessages,
-        { role: "assistant", content: assistantMsg() || "" },
+        {
+          role: "assistant",
+          content: assistantMsg() || "",
+          reasoning: reasoningContent(),
+        },
       ];
       onMessagesUpdate(finalMessages);
       setReplying(false);
@@ -76,6 +100,11 @@ export function ChatStoreProvider(props: { children: any }) {
     replying,
     setUserInput,
     doChat,
+    reasoningContent,
+    isDeep,
+    setIsDeep,
+    useSearch,
+    setUseSearch,
   };
 
   return (
